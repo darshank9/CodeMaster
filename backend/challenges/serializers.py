@@ -1,8 +1,7 @@
-# challenges/serializers.py
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
-from .models import Challenge
+from .models import Challenge, Tag
 
 User = get_user_model()
 
@@ -26,21 +25,13 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
-# Challenge Serializer
-class ChallengeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Challenge
-        fields = '__all__'
-        read_only_fields = ('created_by',)
-        
-from rest_framework import serializers
-from .models import Challenge, Tag
-
+# Tag Serializer
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['name']
 
+# Single Challenge Serializer (merged)
 class ChallengeSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
     

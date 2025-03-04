@@ -1,8 +1,7 @@
-from rest_framework import viewsets
+from rest_framework import generics
 from .models import Challenge
 from .serializers import ChallengeSerializer
 
-class ChallengeViewSet(viewsets.ModelViewSet):
+class ChallengeList(generics.ListAPIView):
     queryset = Challenge.objects.all()
     serializer_class = ChallengeSerializer
-    http_method_names = ['get', 'post', 'patch', 'delete']  # Limit to needed methods
